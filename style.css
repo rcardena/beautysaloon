@@ -1,0 +1,628 @@
+/* RESET*/
+
+* {
+  margin: 0; /*TAMANHO DA MARGEM*/
+  padding: 0; /* PREENCHIMENDO INTERNO*/
+  box-sizing: border-box; /* CAIXA CONTA A PARTIR DA BORDA*/
+}
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+/* RESET*/
+
+/*VARIABLES*/
+
+:root {
+  --header-height: 4.5rem;
+
+  --hue: 149; /* VARIÁVEL DE CONTROLE PARA COR DA PÁGINA*/
+
+  /* HSL color mode */
+  --base-color: hsl(var(--hue) 36% 57%);
+  --base-color-second: hsl(var(--hue) 65% 88%);
+  --base-color-alt: hsl(var(--hue) 57% 53%);
+  --title-color: hsl(var(--hue) 41% 10%);
+  --text-color: hsl(0 0% 46%);
+  --text-color-light: hsl(0 0% 98%);
+  --body-color: hsl(0 0% 98%);
+
+  /*FONTES*/
+  --text-font-size: 1.875rem;
+  --subtitle-font-size: 1rem;
+  --title-font: 'Poppins', sans-serif;
+  --body-font: 'DM Sans', sans-serif;
+}
+
+/* =============BASE===================== */
+
+html {
+  scroll-behavior: smooth; /*ROLAMENTO SUAVE DA PÁGINA*/
+}
+body {
+  font: 400 1rem var(--body-font);
+  color: var(--text-color);
+  background: var(--body-color);
+  -webkit-font-smoothing: antialiased; /* DEIXA MAIS SUAVE O TEXTO*/
+}
+.title {
+  font: 700 var(--text-font-size) var(--title-font);
+  color: var(--title-color);
+  -webkit-font-smoothing: auto;
+}
+
+.button {
+  background-color: var(--base-color);
+  color: var(--text-color-light);
+  height: 3.5rem;
+  display: inline-flex; /*DISPLAY define o tamanho do botão.*/
+  align-items: center;
+  padding: 0 2rem;
+  border-radius: 0.25rem;
+  font: 500 1rem var(--body-font);
+  transition: background 0.3s; /*TEMPO PARA TRANSIÇÃO DE CORES DO BOTÃO*/
+}
+
+.button:hover {
+  background: var(--base-color-alt);
+}
+
+.divider-1 {
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 36%, 57%, 1),
+    hsla(var(--hue), 65%, 88%, 0.34)
+  );
+}
+.divider-2 {
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 65%, 88%, 0.34),
+    hsla(var(--hue), 36%, 57%, 1)
+  );
+}
+/*==================LAYOUT==================*/
+
+.container {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+.grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.section {
+  padding: calc(5rem + var(--header-height)) 0;
+}
+
+.section .title {
+  margin-bottom: 1rem;
+}
+
+.section header {
+  margin-bottom: 4rem;
+}
+
+.section .subtitle {
+  font-size: var(--subtitle-font-size);
+}
+.section header strong {
+  color: var(--base-color);
+}
+
+#header {
+  border-bottom: 1px, solid #e4e4e4;
+  margin-bottom: 2rem;
+  display: flex;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: var(--body-color);
+  width: 100%;
+}
+#header.scroll {
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* LOGO  */
+.logo {
+  font: 700 1.31rem var(--title-font);
+  color: var(--title-color);
+}
+.logo span {
+  color: var(--base-color);
+}
+.logo-alt span {
+  color: var(--body-color);
+}
+
+/*==================NAVIGATION==================*/
+nav {
+  height: var(
+    --header-height
+  ); /*REM(ROOT ELEMENT) É UMA UNIDADE RELATIVA PARA RESPONSIVIDADE*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /*ALINHAMENTO DO CONTEÚDO DENTRO DO 'NAV'*/
+  width: 100%;
+}
+
+nav ul.grid {
+  gap: 4rem;
+}
+nav ul li {
+  text-align: center;
+}
+
+nav ul li a {
+  transition: color 0.2s;
+  position: relative;
+}
+nav ul li a:hover,
+nav ul li a.active {
+  /*aplica troca de cor quando o mouse está em cima do link do menu mobile*/
+  color: var(--base-color);
+}
+
+nav ul li a::after {
+  /*aplica linha em baixo do link do menu mobile*/
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: var(--base-color);
+
+  position: absolute;
+  left: 0;
+  bottom: -1.5rem;
+
+  transition: width 0.2s;
+}
+nav ul li a:hover::after,
+nav ul li a.active::after {
+  width: 100%;
+  font-weight: bold;
+}
+nav .menu {
+  opacity: 0;
+  visibility: hidden;
+  top: -20rem;
+  transition: 0.2s;
+}
+
+nav .menu ul {
+  display: none; /*mantem o menu apagado até o fim da tansição*/
+}
+/*mostra menu*/
+nav.show .menu {
+  /*quando clicar no menu vai aparecer isso*/
+  opacity: 1;
+  visibility: visible;
+  background: var(--body-color);
+
+  height: 100vh; /* vh = view port heigth*/
+  width: 100vw;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: grid;
+  place-content: center;
+}
+nav.show .menu ul {
+  display: grid; /*faz o menu aparecer ao fim da transição*/
+}
+nav.show ul.grid {
+  gap: 4rem;
+}
+/*toggle(interruptor) menu*/
+.toggle {
+  color: var(--base-color);
+  font-size: 1.5rem;
+  cursor: pointer; /*MOSTRA A MÃOZINHA ao passar o mouse por cima*/
+}
+
+nav .icon-close {
+  visibility: hidden;
+  opacity: 0;
+
+  top: -1.5rem; /*inicia o icone escondido, posição inicial*/
+  position: absolute;
+  right: 1.5rem;
+  transition: 0.2s; /*transição suave do icone*/
+}
+nav.show div.icon-close {
+  visibility: visible;
+  opacity: 1;
+
+  top: 1.5rem; /*posicão final do icone "x" ao clicar em menu*/
+}
+
+/*============HOME========================*/
+#home {
+  overflow: hidden;
+}
+
+#home .container {
+  margin: 0;
+}
+#home .image {
+  position: relative;
+}
+#home .image::before {
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -16.8%;
+  left: 16.7%;
+  z-index: 0;
+}
+#home .image img {
+  position: relative;
+  right: 2.93rem;
+}
+#home .image img,
+#home .image::before {
+  border-radius: 0.25rem;
+}
+#home .text {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  text-align: center;
+}
+
+#home .text h1 {
+  margin-bottom: 1rem;
+}
+
+#home .text p {
+  margin-bottom: 2rem;
+}
+
+/*========== ABOUT =============  */
+#about {
+  background: white;
+}
+#about .container {
+  margin: 0;
+}
+#about .image {
+  position: relative;
+}
+#about .image::before {
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -8.3%;
+  left: -33%;
+  z-index: 0;
+}
+#about .image img {
+  position: relative;
+}
+#about .image img,
+.image::before {
+  border-radius: 0.25rem;
+}
+#about .text {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+
+#about .text h1 {
+  margin-bottom: 1rem;
+}
+
+#about .text p {
+  margin-bottom: 2rem;
+}
+
+/* ============= SERVICES ==================*/
+
+.cards.grid {
+  gap: 1.5rem;
+}
+
+.card {
+  padding: 3.625rem 2rem;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08); /*borda sombreada*/
+  border-bottom: 0.25rem solid var(--base-color); /*base colorida*/
+  border-radius: 0.25rem 0.25rem 0 0; /*bordas arrendondadas na parte de cima*/
+  text-align: center;
+}
+
+.card i {
+  display: block; /* para ocupar linha toda*/
+  margin-bottom: 1.5rem;
+  font-size: 5rem;
+  color: var(--base-color);
+}
+
+.card .title {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+/*=========== TESTIMONIALS=================*/
+
+#testimonials {
+  background-color: white;
+}
+#testimonials {
+  margin-bottom: 0;
+}
+
+#testimonials .container {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 0;
+}
+
+#testimonials blockquote {
+  padding: 2rem; /*PADDING define uma distância entre o conteúdo de um elemento e suas bordas*/
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 0.25rem;
+}
+#testimonials blockquote p {
+  position: relative;
+  text-indent: 1.875rem; /*indent identa o texto*/
+  margin-bottom: 1.5rem; /*espaçõ entre a base do texto e o 'p' seguinte*/
+  color: var(--title-color);
+}
+/* propriedade abaixo, classe testimonias>>>>> span que está dentro de p que está dentro de blockquote*/
+#testimonials blockquote p span {
+  font: 700 2.5rem serif;
+  position: absolute;
+  top: -0.5rem; /*top e left ajusta as aspas em relação ao p*/
+  left: -1.875rem;
+  color: var(--base-color);
+}
+
+#testimonials cite {
+  display: flex;
+  align-items: center;
+  font-style: normal;
+}
+
+#testimonials cite img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover; /*encaixa a imagem dentro 'covering' o espaço definido acima*/
+  clip-path: circle(); /*cria uma mascara na imagem, no caso um círculo*/
+  margin-right: 0.5rem;
+}
+
+/*SWIPER*/
+.swiper-slide {
+  height: auto;
+  padding: 4rem 1rem;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--base-color);
+}
+
+/*========== CONTACT ==========*/
+
+#contact .grid {
+  gap: 4rem;
+}
+
+#contact .text p {
+  margin-bottom: 2rem;
+}
+
+#contact .button i,
+#contact ul li i {
+  font-size: 1.5rem;
+  margin-right: 0.625rem;
+}
+
+#contact ul.grid {
+  gap: 2rem;
+}
+
+#contact ul li {
+  display: flex;
+  align-items: center;
+}
+
+#contact ul li i {
+  color: var(--base-color);
+}
+
+/*=============== FOOTER ==================*/
+footer {
+  background-color: var(--base-color);
+}
+
+footer.section {
+  padding: 4rem 0;
+}
+footer .logo {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+}
+footer .brand p {
+  color: var(--text-color-light);
+  margin-bottom: 0.75rem;
+}
+footer i {
+  font-size: 1.5rem;
+  color: var(--text-color-light);
+}
+
+footer .social {
+  grid-auto-flow: column; /*FLUI EM COLUNAS*/
+  width: fit-content; /*'CAIXA' do grid se encaixa com o conteúdo, no caso, o ícone*/
+}
+footer .social a {
+  transition: 0.3s;
+  display: inline-block; /*precisa redefinir para receber o translate do efeito*/
+}
+footer .social a:hover {
+  transform: translateY(-8px); /*efeito de levantar o icone ao passar o mouse*/
+}
+
+/* ======== BACK TO TOP ======*/
+
+.back-to-top {
+  background: var(--base-color);
+  color: var(--text-color-light);
+  position: fixed; /*fixa o elemento à frente da página pai*/
+  right: 1rem;
+  bottom: 1rem;
+
+  padding: 0.5rem;
+  clip-path: circle();
+  font-size: 1.5rem;
+  line-height: 0;
+
+  visibility: hidden; /*inicia 'sumido'*/
+  opacity: 0;
+
+  transition: 0.3s; /*tempo de transição*/
+  transform: translateY(100%); /*efeito de transição*/
+}
+
+.back-to-top.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0); /*mostra o botão*/
+}
+
+/*========== RESPONSIVO ========*/
+/* extra large devices: +1200 > */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section {
+    padding: 10rem 0;
+  }
+
+  .section header,
+  #testimonials header {
+    max-width: 32rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .button {
+    height: 3.125rem;
+  }
+  nav .menu {
+    /*ALTERAÇÃO MENU PARA TELA*/
+    opacity: 1;
+    visibility: visible;
+    top: 0;
+  }
+
+  nav .menu ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav .menu ul li a.title {
+    font: 400 1rem var(--body-font);
+    -webkit-font-smoothing: antialiased;
+  }
+  nav .menu ul li a.title.active {
+    font-weight: bold;
+    -webkit-font-smoothing: auto;
+  }
+  nav .icon-menu {
+    display: none;
+  }
+
+  /*home*/
+
+  #home .container {
+    /*MODIFICA O CONTAINER PARA REORGANIZAR OS ITENS*/
+    grid-auto-flow: column;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+  #home .image {
+    order: 1;
+  }
+
+  #home .text {
+    order: 0;
+    max-width: 24rem;
+    text-align: left;
+  }
+
+  #about .container {
+    grid-auto-flow: column;
+    margin: 0 auto;
+  }
+
+  #testimonials .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .card {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  #contact .container {
+    grid-auto-flow: column;
+    align-items: center;
+  }
+  #contact .text {
+    max-width: 25rem;
+  }
+
+  footer.section {
+    padding: 3.75rem 0;
+  }
+
+  footer .container {
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .logo {
+    font-size: 2.25rem;
+  }
+  main {
+    margin-top: var(--header-height);
+  }
+}
+/* large devices: 1023 > */
+/* large devices: 992 > */
+@media (min-width: 992px) {
+  /*DENTRO DO PARENTESES COLOCO O MENOR LARGURA DE TELA para mudar*/
+  :root {
+    --title-font-size: 2.25rem;
+    --subtitle-font-size: 1.125rem;
+  }
+}
+/* medium devices: 767 > */
